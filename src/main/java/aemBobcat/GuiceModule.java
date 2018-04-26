@@ -25,5 +25,6 @@ public class GuiceModule extends AbstractModule {
 		install(new CoreModule());
 		install(new ReporterModule());
         install(new AemCommonModule());
+        install(new AemClassicModule());
 	}
 }
