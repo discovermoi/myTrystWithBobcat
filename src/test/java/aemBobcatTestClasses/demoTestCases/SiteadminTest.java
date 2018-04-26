@@ -2,7 +2,9 @@ package aemBobcatTestClasses.demoTestCases;
 
 import aemBobcat.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.ChildPageRow;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.SiteadminPage;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.SiteadminToolbar;
 import com.cognifide.qa.bb.aem.ui.wcm.SiteAdminPage;
 import com.cognifide.qa.bb.aem.ui.wcm.constants.ActivationStatus;
 import com.cognifide.qa.bb.aem.ui.wcm.constants.PageStatus;
@@ -39,7 +41,7 @@ public class SiteadminTest{
     private AemLogin aemLogin;
 
     @Inject
-    private SiteAdminPage siteAdminPage;
+    private SiteadminPage siteAdminPage;
 
     @Inject
     private ReportEntryLogger reportEntryLogger;
@@ -52,33 +54,33 @@ public class SiteadminTest{
 
     @Test
     public void shouldActivateAndDeactivatePageProperly() {
-        SiteAdminGridRow createdPageGridRow;
+        ChildPageRow createdPageGridRow;
         createPage();
 
-        siteAdminPage.activatePage(CREATED_PAGE_TITLE);
-        createdPageGridRow = siteAdminPage.getGrid().selectPageByTitle(CREATED_PAGE_TITLE);
-        assertThat(createdPageGridRow.getActivationStatus(), is(ActivationStatus.ACTIVATED));
+        siteAdminPage.publishPage(CREATED_PAGE_TITLE);
+        createdPageGridRow = siteAdminPage.getPageFromList(CREATED_PAGE_TITLE);
+        assertThat(createdPageGridRow.getPageActivationStatus(), is(ActivationStatus.ACTIVATED));
 
-        siteAdminPage.deactivatePage(CREATED_PAGE_TITLE);
-        createdPageGridRow = siteAdminPage.getGrid().selectPageByTitle(CREATED_PAGE_TITLE);
-        assertThat(createdPageGridRow.getActivationStatus(), is(ActivationStatus.DEACTIVATED));
+        siteAdminPage.unpublishPage(CREATED_PAGE_TITLE);
+        siteAdminPage.getPageFromList(CREATED_PAGE_TITLE);
+        assertThat(createdPageGridRow.getPageActivationStatus(), is(ActivationStatus.ACTIVATED));
     }
 
     @Test
     public void shouldActivatePageLater() {
         createPage();
-        siteAdminPage.activatePageLater(CREATED_PAGE_TITLE, "25/04/18", "11:00 AM");
-        SiteAdminGridRow createdPageGridRow = siteAdminPage.getGrid().selectPageByTitle(CREATED_PAGE_TITLE);
-        assertThat(createdPageGridRow.getPageStatusToolTip(),
+        siteAdminPage.publishPage(CREATED_PAGE_TITLE);
+        ChildPageRow createdPageGridRow = siteAdminPage.getPageFromList(CREATED_PAGE_TITLE);
+        assertThat(createdPageGridRow.getTitle(),
                 containsString(PageStatus.SCHEDULED_ACTIVATION.getStatusCss()));
     }
 
     @Test
     public void shouldDeactivatePageLater() {
         createPage();
-        siteAdminPage.deactivatePageLater(CREATED_PAGE_TITLE, "25/04/18", "11:00 AM");
-        SiteAdminGridRow createdPageGridRow = siteAdminPage.getGrid().selectPageByTitle(CREATED_PAGE_TITLE);
-        assertThat(createdPageGridRow.getPageStatusToolTip(),
+        siteAdminPage.unpublishPage(CREATED_PAGE_TITLE);
+        ChildPageRow createdPageGridRow = siteAdminPage.getPageFromList(CREATED_PAGE_TITLE);
+        assertThat(createdPageGridRow.getTitle(),
                 containsString(PageStatus.SCHEDULED_DEACTIVATION.getStatusCss()));
     }
 
@@ -94,7 +96,7 @@ public class SiteadminTest{
             siteAdminPage.createNewPage(CREATED_PAGE_TITLE, CREATE_PAGE_TEMPLATE);
         }
         assertTrue(siteAdminPage.isPagePresent(CREATED_PAGE_TITLE));
-        assertTrue(siteAdminPage.isTemplateOnTheList(CREATED_PAGE_TITLE, CREATE_PAGE_TEMPLATE));
+        assertTrue(siteAdminPage.isPagePresent(CREATED_PAGE_TITLE));
         reportEntryLogger.info("test page created");
     }
 
