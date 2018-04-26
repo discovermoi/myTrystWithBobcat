@@ -1,5 +1,6 @@
 package aemBobcatTestClasses;
 
+import aemBobcatTestClasses.demoTestCases.SiteadminTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -14,7 +15,7 @@ import aemBobcatTestClasses.summer.SectionHeaderComponentTest;
 
 @Modules(GuiceModule.class)
 @RunWith(ConcurrentSuite.class)
-@Suite.SuiteClasses({ AuthorizationTest.class, ImageComponentTest.class, SectionHeaderComponentTest.class,
+@Suite.SuiteClasses({ SiteadminTest.class, AuthorizationTest.class, ImageComponentTest.class, SectionHeaderComponentTest.class,
 		StartFormComponentTest.class })
 public class BobcatSuite {
 

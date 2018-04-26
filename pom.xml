@@ -89,6 +89,11 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-aem-touch-ui</artifactId>
+            <version>${bb.version}</version>
+        </dependency>
     </dependencies>
 
 

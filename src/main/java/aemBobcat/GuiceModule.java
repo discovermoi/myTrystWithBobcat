@@ -1,5 +1,7 @@
 package aemBobcat;
 
+import com.cognifide.qa.bb.aem.AemCommonModule;
+import com.cognifide.qa.bb.aem.touch.modules.AemTouchUiModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.cognifide.qa.bb.AemClassicModule;
 import com.cognifide.qa.bb.logging.ReporterModule;
@@ -21,7 +23,7 @@ public class GuiceModule extends AbstractModule {
 			System.setProperty("configuration.paths", "src/main/config/dev;src/main/config/common");
 		}
 		install(new CoreModule());
-		install(new AemClassicModule());
 		install(new ReporterModule());
+        install(new AemCommonModule());
 	}
 }
