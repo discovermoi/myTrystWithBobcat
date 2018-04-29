@@ -7,35 +7,34 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
+import com.google.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import javax.inject.Inject;
+
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
-public class ComponentTests {
+public class ComponentTest {
     @Inject
     private AemLogin aemLogin;
 
     @Inject
-    private Pages pages;
+    private AuthorPageFactory authorPageFactory;
 
     @Inject
-    private AuthorPageFactory authorPageFactory;
+    private Pages pages;
 
     private AuthorPage page;
 
     @Before
-    public void before() {
+    public void createAuthorPage() {
         aemLogin.authorLogin();
-        page = authorPageFactory.create(pages.getPath("Image-Update"));
+        page = authorPageFactory.create(pages.getPath("Test-Component"));
         page.open();
     }
 
     @Test
     public void testAuthorPage() {
-        page.isLoaded();
-    }
-
-}
+        // Empty
+}   }

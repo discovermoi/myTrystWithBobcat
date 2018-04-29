@@ -50,7 +50,7 @@ public class StartFormComponentTest {
 	private StartFormComponent startFormComponent;
 
 	/**
-	 * Check if FeedbackPage page has been opened.
+	 * Check if FlindersPage page has been opened.
 	 */
 	private void openPageToTest() {
 		feedBackPage.open();
